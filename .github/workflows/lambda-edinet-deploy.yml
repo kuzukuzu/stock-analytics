@@ -46,3 +46,10 @@ jobs:
         docker tag  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+    - name: Update lambda function
+      id: update-lambda
+      env:
+        IMAGE: ${{ steps.build-image.outputs.image }}
+      run: |
+        aws lambda update-function-code --function-name edinet --image-uri $IMAGE
