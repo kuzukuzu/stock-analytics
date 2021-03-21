@@ -21,7 +21,6 @@ def get_document(document_id):
     s3_client = s3.client()
     key = document_id + '.zip'
  
-    with open(filepath) as f:
-        s3_client.put_object(key, f)
+    s3_client.upload_file(filepath, key)
 
     return key

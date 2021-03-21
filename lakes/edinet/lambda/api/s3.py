@@ -2,18 +2,16 @@ import boto3
 
 class Client:
   def __init__(self, bucket):
-    self.__client = boto3.client('s3')
-    self.__bucket = bucket
+    self.__s3 = boto3.resource('s3')
+    self.__bucket = self.__s3.Bucket(bucket)
 
-  def put_object(self, key, filepath):
-    self.__client.put_object(
-      Bucket=self.__bucket,
-      Key=key,
-      Body=filepath
+  def upload_file(self, filepath, key):
+    self.__bucket.upload_file(
+      filepath, key
     )
 
 class DummyClient(Client):
-  def put_object(self, key, filepath):
+  def upload_file(self, filepath, key):
     pass
 
 def client():
