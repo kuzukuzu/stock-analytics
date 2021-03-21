@@ -40,7 +40,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        cd ./lambda/edinet
+        cd ./lakes/edinet
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
@@ -52,4 +52,4 @@ jobs:
       env:
         IMAGE: ${{ steps.build-image.outputs.image }}
       run: |
-        aws lambda update-function-code --function-name edinet --image-uri $IMAGE
+        aws lambda update-function-code --function-name edinet-get_documents_list --image-uri $IMAGE
