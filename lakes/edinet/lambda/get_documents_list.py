@@ -1,4 +1,4 @@
 from . import main
 
 def handler(event, context):
-    main.run()
+    main.get_documents_list()

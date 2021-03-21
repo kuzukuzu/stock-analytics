@@ -53,3 +53,4 @@ jobs:
         IMAGE: ${{ steps.build-image.outputs.image }}
       run: |
         aws lambda update-function-code --function-name edinet-get_documents_list --image-uri $IMAGE
+        aws lambda update-function-code --function-name edinet-get_document --image-uri $IMAGE
